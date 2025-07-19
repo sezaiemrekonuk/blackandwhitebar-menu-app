@@ -1,0 +1,54 @@
+[
+    {
+      "category": "Food",
+      "items": [
+        {
+          "name": "Cheeseburger",
+          "description": "Juicy beef patty with cheddar cheese, lettuce, tomato, and our special sauce.",
+          "price": "₺75",
+          "image": "https://source.unsplash.com/collection/9484412/400x300?burger"
+        },
+        {
+          "name": "Loaded Fries",
+          "description": "Crispy fries topped with melted cheese, bacon bits, and green onions.",
+          "price": "₺45",
+          "image": "https://source.unsplash.com/collection/9484412/400x300?fries"
+        }
+      ]
+    },
+    {
+      "category": "Drinks",
+      "items": [
+        {
+          "name": "Mojito",
+          "description": "Fresh mint, lime juice, white rum, and soda water.",
+          "price": "₺60",
+          "image": "https://source.unsplash.com/collection/9484412/400x300?mojito"
+        },
+        {
+          "name": "Espresso Martini",
+          "description": "Vodka, espresso, coffee liqueur, and a hint of vanilla.",
+          "price": "₺70",
+          "image": "https://source.unsplash.com/collection/9484412/400x300?cocktail"
+        }
+      ]
+    },
+    {
+      "category": "Beers",
+      "items": [
+        {
+          "name": "Efes Pilsen",
+          "description": "Classic Turkish lager, crisp and refreshing.",
+          "price": "₺35",
+          "image": "https://source.unsplash.com/collection/9484412/400x300?beer"
+        },
+        {
+          "name": "Guinness Draught",
+          "description": "Smooth, creamy stout with hints of coffee and chocolate.",
+          "price": "₺55",
+          "image": "https://source.unsplash.com/collection/9484412/400x300?stout"
+        }
+      ]
+    }
+  ]
+  
