@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase/config';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 export default function AdminLogin({ onLogin }) {
   const [email, setEmail] = useState('');
@@ -26,7 +27,18 @@ export default function AdminLogin({ onLogin }) {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-primary">
+    <div className="min-h-screen flex items-center justify-center bg-primary relative">
+      {/* Go to Website Link - Top Left */}
+      <Link
+        to="/"
+        className="absolute top-6 left-6 text-accent hover:text-accent/80 transition-colors flex items-center gap-2 z-10 font-medium"
+      >
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        Web Sitesine Dön
+      </Link>
+
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -80,6 +92,15 @@ export default function AdminLogin({ onLogin }) {
             {loading ? 'Giriş Yapılıyor...' : 'Giriş Yap'}
           </button>
         </form>
+
+        {/* Help Text */}
+        <div className="mt-6 text-center">
+          <p className="text-gray-400 text-sm">
+            Admin bilgileriniz yok mu? 
+            <br />
+            <span className="text-accent">Yöneticinizle iletişime geçin.</span>
+          </p>
+        </div>
       </motion.div>
     </div>
   );
