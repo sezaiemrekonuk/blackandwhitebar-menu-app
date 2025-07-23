@@ -19,17 +19,17 @@ export default function InstagramEmbed({ postUrl, title = "Instagram Post" }) {
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
-      className="w-full max-w-md mx-auto"
+      className="w-full max-w-xs sm:max-w-md mx-auto"
     >
       <div className="bg-primary/80 rounded-xl shadow-xl overflow-hidden">
-        <div className="p-4 border-b border-gray-600">
-          <h3 className="text-lg font-semibold text-center">{title}</h3>
+        <div className="p-2 sm:p-4 border-b border-gray-600">
+          <h3 className="text-base sm:text-lg font-semibold text-center">{title}</h3>
         </div>
         <div className="relative">
           <iframe
             src={getEmbedUrl(postUrl)}
             title={title}
-            className="w-full h-96"
+            className="w-full h-64 sm:h-96"
             frameBorder="0"
             scrolling="no"
             allowTransparency={true}
@@ -44,25 +44,25 @@ export default function InstagramEmbed({ postUrl, title = "Instagram Post" }) {
 // Component to embed Black&White Muğla Instagram profile
 export function BlackWhiteInstagramProfile() {
   return (
-    <section className="py-20 px-4">
-      <h2 className="text-4xl font-heading text-center mb-12">Instagram'da Bizi Takip Edin</h2>
-      <div className="max-w-4xl mx-auto">
+    <section className="py-10 sm:py-20 px-2 sm:px-4">
+      <h2 className="text-2xl sm:text-4xl font-heading text-center mb-8 sm:mb-12">Instagram'da Bizi Takip Edin</h2>
+      <div className="max-w-md sm:max-w-4xl mx-auto">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           className="bg-primary/80 rounded-xl shadow-xl overflow-hidden"
         >
-          <div className="p-6 border-b border-gray-600">
-            <div className="flex items-center justify-center gap-4">
-              <div className="w-12 h-12 bg-accent rounded-full flex items-center justify-center">
+          <div className="p-4 sm:p-6 border-b border-gray-600">
+            <div className="flex items-center justify-center gap-2 sm:gap-4">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-accent rounded-full flex items-center justify-center">
                 <span className="text-primary font-bold text-lg">
-                    <img src="/logo.jpg" alt="Black&White" className="w-10 h-10 rounded-full" />
+                    <img src="/logo.jpg" alt="Black&White" className="w-8 h-8 sm:w-10 sm:h-10 rounded-full" />
                 </span>
               </div>
               <div className="text-center">
-                <h3 className="text-xl font-semibold">@blackwhitemugla</h3>
-                <p className="text-gray-300 text-sm">Black&White Bar Muğla</p>
+                <h3 className="text-lg sm:text-xl font-semibold">@blackwhitemugla</h3>
+                <p className="text-gray-300 text-xs sm:text-sm">Black&White Bar Muğla</p>
               </div>
             </div>
           </div>
@@ -70,14 +70,14 @@ export function BlackWhiteInstagramProfile() {
             <iframe
               src="https://www.instagram.com/blackwhitemugla/embed"
               title="Black&White Muğla Instagram"
-              className="w-full h-[600px]"
+              className="w-full h-80 sm:h-[600px]"
               frameBorder="0"
               scrolling="no"
               allowTransparency={true}
               allowFullScreen={true}
             />
           </div>
-          <div className="p-4 bg-gray-800/50 text-center">
+          <div className="p-2 sm:p-4 bg-gray-800/50 text-center">
             <a 
               href="https://www.instagram.com/blackwhitemugla/" 
               target="_blank" 
@@ -99,10 +99,10 @@ export function BlackWhiteInstagramProfile() {
 // Alternative component for multiple Instagram posts
 export function InstagramFeed({ posts = [] }) {
   return (
-    <section className="py-20 px-4">
-      <h2 className="text-4xl font-heading text-center mb-12">Instagram</h2>
-      <div className="max-w-6xl mx-auto">
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+    <section className="py-10 sm:py-20 px-2 sm:px-4">
+      <h2 className="text-2xl sm:text-4xl font-heading text-center mb-8 sm:mb-12">Instagram</h2>
+      <div className="max-w-2xl sm:max-w-6xl mx-auto">
+        <div className="grid gap-6 sm:gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {posts.map((post, index) => (
             <InstagramEmbed 
               key={index}
@@ -119,10 +119,10 @@ export function InstagramFeed({ posts = [] }) {
 // Component for Instagram stories highlight
 export function InstagramStories({ stories = [] }) {
   return (
-    <section className="py-20 px-4">
-      <h2 className="text-4xl font-heading text-center mb-12">Instagram Hikayeleri</h2>
-      <div className="max-w-4xl mx-auto">
-        <div className="flex gap-4 overflow-x-auto pb-4">
+    <section className="py-10 sm:py-20 px-2 sm:px-4">
+      <h2 className="text-2xl sm:text-4xl font-heading text-center mb-8 sm:mb-12">Instagram Hikayeleri</h2>
+      <div className="max-w-md sm:max-w-4xl mx-auto">
+        <div className="flex gap-2 sm:gap-4 overflow-x-auto pb-4">
           {stories.map((story, index) => (
             <motion.div
               key={index}
@@ -131,11 +131,11 @@ export function InstagramStories({ stories = [] }) {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className="flex-shrink-0"
             >
-              <div className="w-64 h-96 bg-primary/80 rounded-xl shadow-xl overflow-hidden">
-                <div className="p-3 border-b border-gray-600">
-                  <h3 className="text-sm font-medium text-center truncate">{story.title}</h3>
+              <div className="w-40 h-64 sm:w-64 sm:h-96 bg-primary/80 rounded-xl shadow-xl overflow-hidden">
+                <div className="p-2 sm:p-3 border-b border-gray-600">
+                  <h3 className="text-xs sm:text-sm font-medium text-center truncate">{story.title}</h3>
                 </div>
-                <div className="relative h-80">
+                <div className="relative h-48 sm:h-80">
                   <iframe
                     src={story.url}
                     title={story.title}

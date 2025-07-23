@@ -194,8 +194,8 @@ export default function AdminDashboard() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-primary">
-        <div className="text-accent text-xl">Yükleniyor...</div>
+      <div className="min-h-screen flex items-center justify-center bg-primary px-2 sm:px-0">
+        <div className="text-accent text-lg sm:text-xl">Yükleniyor...</div>
       </div>
     );
   }
@@ -203,13 +203,13 @@ export default function AdminDashboard() {
   return (
     <div className="min-h-screen bg-primary text-white">
       {/* Header */}
-      <header className="bg-gray-800 p-6 shadow-lg">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <h1 className="text-3xl font-heading text-accent">Black&White Bar Admin</h1>
-          <div className="flex items-center gap-4">
+      <header className="bg-gray-800 p-4 sm:p-6 shadow-lg">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2 sm:gap-0">
+          <h1 className="text-2xl sm:text-3xl font-heading text-accent">Black&White Bar Admin</h1>
+          <div className="flex items-center gap-2 sm:gap-4 mt-2 sm:mt-0">
             <Link
               to="/"
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2"
+              className="px-3 sm:px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2 text-xs sm:text-base"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
@@ -218,7 +218,7 @@ export default function AdminDashboard() {
             </Link>
             <button
               onClick={handleLogout}
-              className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+              className="px-3 sm:px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-xs sm:text-base"
             >
               Çıkış Yap
             </button>
@@ -227,11 +227,11 @@ export default function AdminDashboard() {
       </header>
 
       {/* Tabs */}
-      <div className="max-w-7xl mx-auto p-6">
-        <div className="flex gap-4 mb-8">
+      <div className="max-w-7xl mx-auto p-2 sm:p-6">
+        <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 mb-6 sm:mb-8">
           <button
             onClick={() => setActiveTab('menu')}
-            className={`px-6 py-3 rounded-lg font-semibold transition-colors ${
+            className={`px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold transition-colors text-xs sm:text-base ${
               activeTab === 'menu' 
                 ? 'bg-accent text-primary' 
                 : 'bg-gray-700 text-white hover:bg-gray-600'
@@ -241,7 +241,7 @@ export default function AdminDashboard() {
           </button>
           <button
             onClick={() => setActiveTab('messages')}
-            className={`px-6 py-3 rounded-lg font-semibold transition-colors ${
+            className={`px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold transition-colors text-xs sm:text-base ${
               activeTab === 'messages' 
                 ? 'bg-accent text-primary' 
                 : 'bg-gray-700 text-white hover:bg-gray-600'
@@ -255,14 +255,14 @@ export default function AdminDashboard() {
         {activeTab === 'menu' && (
           <>
             {/* Controls */}
-            <div className="flex flex-wrap gap-4 mb-8">
+            <div className="flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-4 mb-6 sm:mb-8">
               <button
                 onClick={() => {
                   setEditingItem(null);
                   setFormData({ name: '', description: '', price: '', category: '', image: null, imageUrl: '' });
                   setShowForm(true);
                 }}
-                className="px-6 py-3 bg-accent text-primary font-semibold rounded-lg hover:bg-accent/90"
+                className="px-4 sm:px-6 py-2 sm:py-3 bg-accent text-primary font-semibold rounded-lg hover:bg-accent/90 text-xs sm:text-base"
               >
                 + Yeni Menü Öğesi
               </button>
@@ -270,7 +270,7 @@ export default function AdminDashboard() {
               <select
                 value={filterCategory}
                 onChange={(e) => setFilterCategory(e.target.value)}
-                className="px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:border-accent"
+                className="px-3 sm:px-4 py-2 sm:py-3 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:border-accent text-xs sm:text-base"
               >
                 <option value="">Tüm Kategoriler</option>
                 {categories.map(cat => (
@@ -281,7 +281,7 @@ export default function AdminDashboard() {
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:border-accent"
+                className="px-3 sm:px-4 py-2 sm:py-3 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:border-accent text-xs sm:text-base"
               >
                 <option value="name">İsme Göre Sırala</option>
                 <option value="price">Fiyata Göre Sırala</option>
@@ -290,41 +290,41 @@ export default function AdminDashboard() {
             </div>
 
             {/* Menu Items Grid */}
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-4 sm:gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
               {sortedItems.map((item) => (
                 <motion.div
                   key={item.id}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="bg-gray-800 rounded-xl shadow-xl overflow-hidden"
+                  className="bg-gray-800 rounded-xl shadow-xl overflow-hidden flex flex-col"
                 >
-                  <div className="h-48 overflow-hidden">
+                  <div className="h-36 sm:h-48 overflow-hidden">
                     <img
                       src={item.image || '/placeholder-food.jpg'}
                       alt={item.name}
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  <div className="p-6">
-                    <div className="flex justify-between items-start mb-2">
-                      <h3 className="text-xl font-semibold">{item.name}</h3>
-                      <span className="text-accent font-bold text-lg">₺{item.price}</span>
+                  <div className="p-4 sm:p-6 flex-1 flex flex-col justify-between">
+                    <div className="flex flex-col sm:flex-row justify-between items-start mb-2 gap-2">
+                      <h3 className="text-lg sm:text-xl font-semibold">{item.name}</h3>
+                      <span className="text-accent font-bold text-base sm:text-lg">₺{item.price}</span>
                     </div>
-                    <p className="text-gray-300 text-sm mb-3">{item.description}</p>
-                    <div className="flex items-center justify-between">
-                      <span className="bg-accent/20 text-accent px-3 py-1 rounded-full text-sm">
+                    <p className="text-gray-300 text-xs sm:text-sm mb-2 sm:mb-3">{item.description}</p>
+                    <div className="flex items-center justify-between mt-auto">
+                      <span className="bg-accent/20 text-accent px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm">
                         {item.category}
                       </span>
-                      <div className="flex gap-2">
+                      <div className="flex gap-1 sm:gap-2">
                         <button
                           onClick={() => handleEdit(item)}
-                          className="px-3 py-1 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm"
+                          className="px-2 sm:px-3 py-1 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-xs sm:text-sm"
                         >
                           Düzenle
                         </button>
                         <button
                           onClick={() => handleDelete(item)}
-                          className="px-3 py-1 bg-red-600 text-white rounded-lg hover:bg-red-700 text-sm"
+                          className="px-2 sm:px-3 py-1 bg-red-600 text-white rounded-lg hover:bg-red-700 text-xs sm:text-sm"
                         >
                           Sil
                         </button>
@@ -336,8 +336,8 @@ export default function AdminDashboard() {
             </div>
 
             {sortedItems.length === 0 && (
-              <div className="text-center py-12">
-                <p className="text-gray-400 text-lg">Henüz menü öğesi bulunmuyor.</p>
+              <div className="text-center py-8 sm:py-12">
+                <p className="text-gray-400 text-base sm:text-lg">Henüz menü öğesi bulunmuyor.</p>
               </div>
             )}
           </>
@@ -345,24 +345,24 @@ export default function AdminDashboard() {
 
         {/* Contact Messages Tab */}
         {activeTab === 'messages' && (
-          <div className="space-y-4">
+          <div className="space-y-2 sm:space-y-4">
             {contactMessages.map((message) => (
               <motion.div
                 key={message.id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-gray-800 p-6 rounded-xl shadow-xl"
+                className="bg-gray-800 p-3 sm:p-6 rounded-xl shadow-xl"
               >
-                <div className="flex justify-between items-start mb-4">
+                <div className="flex flex-col sm:flex-row justify-between items-start mb-2 sm:mb-4 gap-2">
                   <div>
-                    <h3 className="text-xl font-semibold">{message.name}</h3>
-                    <p className="text-accent">{message.email}</p>
-                    <p className="text-gray-400 text-sm">
+                    <h3 className="text-lg sm:text-xl font-semibold">{message.name}</h3>
+                    <p className="text-accent text-xs sm:text-base">{message.email}</p>
+                    <p className="text-gray-400 text-xs sm:text-sm">
                       {message.timestamp?.toDate?.()?.toLocaleString('tr-TR') || 'Tarih bilgisi yok'}
                     </p>
                   </div>
-                  <div className="flex gap-2">
-                    <span className={`px-3 py-1 rounded-full text-sm ${
+                  <div className="flex gap-1 sm:gap-2">
+                    <span className={`px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm ${
                       message.status === 'new' 
                         ? 'bg-blue-500/20 text-blue-300' 
                         : 'bg-green-500/20 text-green-300'
@@ -371,21 +371,21 @@ export default function AdminDashboard() {
                     </span>
                     <button
                       onClick={() => handleDeleteMessage(message.id)}
-                      className="px-3 py-1 bg-red-600 text-white rounded-lg hover:bg-red-700 text-sm"
+                      className="px-2 sm:px-3 py-1 bg-red-600 text-white rounded-lg hover:bg-red-700 text-xs sm:text-sm"
                     >
                       Sil
                     </button>
                   </div>
                 </div>
-                <div className="bg-gray-700 p-4 rounded-lg">
-                  <p className="text-gray-300">{message.message}</p>
+                <div className="bg-gray-700 p-2 sm:p-4 rounded-lg">
+                  <p className="text-gray-300 text-xs sm:text-base">{message.message}</p>
                 </div>
               </motion.div>
             ))}
 
             {contactMessages.length === 0 && (
-              <div className="text-center py-12">
-                <p className="text-gray-400 text-lg">Henüz mesaj bulunmuyor.</p>
+              <div className="text-center py-8 sm:py-12">
+                <p className="text-gray-400 text-base sm:text-lg">Henüz mesaj bulunmuyor.</p>
               </div>
             )}
           </div>
@@ -398,93 +398,93 @@ export default function AdminDashboard() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+              className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-2 sm:p-4"
             >
               <motion.div
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.9, opacity: 0 }}
-                className="bg-gray-800 p-8 rounded-xl shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto"
+                className="bg-gray-800 p-4 sm:p-8 rounded-xl shadow-xl w-full max-w-xs sm:max-w-2xl max-h-[90vh] overflow-y-auto"
               >
-                <h2 className="text-2xl font-heading mb-6">
+                <h2 className="text-xl sm:text-2xl font-heading mb-4 sm:mb-6">
                   {editingItem ? 'Menü Öğesini Düzenle' : 'Yeni Menü Öğesi'}
                 </h2>
 
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                     <div>
-                      <label className="block text-sm font-medium mb-2">İsim</label>
+                      <label className="block text-xs sm:text-sm font-medium mb-2">İsim</label>
                       <input
                         type="text"
                         value={formData.name}
                         onChange={(e) => setFormData({...formData, name: e.target.value})}
                         required
-                        className="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:border-accent"
+                        className="w-full p-2 sm:p-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:border-accent text-xs sm:text-base"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium mb-2">Kategori</label>
+                      <label className="block text-xs sm:text-sm font-medium mb-2">Kategori</label>
                       <input
                         type="text"
                         value={formData.category}
                         onChange={(e) => setFormData({...formData, category: e.target.value})}
                         required
-                        className="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:border-accent"
+                        className="w-full p-2 sm:p-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:border-accent text-xs sm:text-base"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium mb-2">Açıklama</label>
+                    <label className="block text-xs sm:text-sm font-medium mb-2">Açıklama</label>
                     <textarea
                       value={formData.description}
                       onChange={(e) => setFormData({...formData, description: e.target.value})}
                       required
                       rows="3"
-                      className="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:border-accent"
+                      className="w-full p-2 sm:p-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:border-accent text-xs sm:text-base"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium mb-2">Fiyat (₺)</label>
+                    <label className="block text-xs sm:text-sm font-medium mb-2">Fiyat (₺)</label>
                     <input
                       type="number"
                       step="0.01"
                       value={formData.price}
                       onChange={(e) => setFormData({...formData, price: e.target.value})}
                       required
-                      className="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:border-accent"
+                      className="w-full p-2 sm:p-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:border-accent text-xs sm:text-base"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium mb-2">Fotoğraf</label>
+                    <label className="block text-xs sm:text-sm font-medium mb-2">Fotoğraf</label>
                     <input
                       type="file"
                       accept="image/*"
                       onChange={(e) => setFormData({...formData, image: e.target.files[0]})}
-                      className="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:border-accent"
+                      className="w-full p-2 sm:p-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:border-accent text-xs sm:text-base"
                     />
                     {formData.imageUrl && (
                       <div className="mt-2">
-                        <img src={formData.imageUrl} alt="Preview" className="w-32 h-32 object-cover rounded-lg" />
+                        <img src={formData.imageUrl} alt="Preview" className="w-24 h-24 sm:w-32 sm:h-32 object-cover rounded-lg" />
                       </div>
                     )}
                   </div>
 
-                  <div className="flex gap-4">
+                  <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
                     <button
                       type="submit"
                       disabled={loading || uploading}
-                      className="flex-1 py-3 bg-accent text-primary font-semibold rounded-lg hover:bg-accent/90 disabled:opacity-50"
+                      className="flex-1 py-2 sm:py-3 bg-accent text-primary font-semibold rounded-lg hover:bg-accent/90 disabled:opacity-50 text-xs sm:text-base"
                     >
                       {loading || uploading ? 'Kaydediliyor...' : (editingItem ? 'Güncelle' : 'Kaydet')}
                     </button>
                     <button
                       type="button"
                       onClick={() => setShowForm(false)}
-                      className="flex-1 py-3 bg-gray-600 text-white font-semibold rounded-lg hover:bg-gray-700"
+                      className="flex-1 py-2 sm:py-3 bg-gray-600 text-white font-semibold rounded-lg hover:bg-gray-700 text-xs sm:text-base"
                     >
                       İptal
                     </button>

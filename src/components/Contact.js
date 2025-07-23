@@ -42,14 +42,14 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-20 px-4 bg-primary/80">
-      <h2 className="text-4xl font-heading text-center mb-8">İletişime Geçin</h2>
+    <section id="contact" className="py-10 sm:py-20 px-2 sm:px-4 bg-primary/80">
+      <h2 className="text-2xl sm:text-4xl font-heading text-center mb-6 sm:mb-8">İletişime Geçin</h2>
       
       {success && (
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="max-w-md mx-auto mb-6 bg-green-500/20 border border-green-500 text-green-300 px-4 py-3 rounded-lg text-center"
+          className="max-w-xs sm:max-w-md mx-auto mb-4 sm:mb-6 bg-green-500/20 border border-green-500 text-green-300 px-2 sm:px-4 py-2 sm:py-3 rounded-lg text-center text-xs sm:text-base"
         >
           Teşekkürler, {form.name}! Mesajınız başarıyla gönderildi.
         </motion.div>
@@ -59,7 +59,7 @@ export default function Contact() {
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="max-w-md mx-auto mb-6 bg-red-500/20 border border-red-500 text-red-300 px-4 py-3 rounded-lg text-center"
+          className="max-w-xs sm:max-w-md mx-auto mb-4 sm:mb-6 bg-red-500/20 border border-red-500 text-red-300 px-2 sm:px-4 py-2 sm:py-3 rounded-lg text-center text-xs sm:text-base"
         >
           {error}
         </motion.div>
@@ -70,7 +70,7 @@ export default function Contact() {
         initial={{ opacity: 0 }} 
         whileInView={{ opacity: 1 }} 
         transition={{ duration: 1 }} 
-        className="max-w-md mx-auto space-y-6"
+        className="max-w-xs sm:max-w-md mx-auto space-y-4 sm:space-y-6"
       >
         <input 
           name="name" 
@@ -79,7 +79,7 @@ export default function Contact() {
           required 
           placeholder="Ad" 
           disabled={loading}
-          className="w-full p-4 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:border-accent disabled:opacity-50" 
+          className="w-full p-3 sm:p-4 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:border-accent disabled:opacity-50 text-xs sm:text-base" 
         />
         <input 
           name="email" 
@@ -89,7 +89,7 @@ export default function Contact() {
           required 
           placeholder="E-posta" 
           disabled={loading}
-          className="w-full p-4 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:border-accent disabled:opacity-50" 
+          className="w-full p-3 sm:p-4 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:border-accent disabled:opacity-50 text-xs sm:text-base" 
         />
         <textarea 
           name="msg" 
@@ -99,14 +99,14 @@ export default function Contact() {
           rows="5" 
           placeholder="Mesaj" 
           disabled={loading}
-          className="w-full p-4 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:border-accent disabled:opacity-50"
+          className="w-full p-3 sm:p-4 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:border-accent disabled:opacity-50 text-xs sm:text-base"
         ></textarea>
         <motion.button 
           whileHover={{ scale: 1.05 }} 
           transition={{ type: 'spring', stiffness: 300 }} 
           type="submit" 
           disabled={loading}
-          className="w-full py-3 bg-accent text-primary font-semibold rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full py-2 sm:py-3 bg-accent text-primary font-semibold rounded-lg disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
         >
           {loading ? 'Gönderiliyor...' : 'Gönder'}
         </motion.button>

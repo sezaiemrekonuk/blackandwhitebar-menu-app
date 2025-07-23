@@ -19,8 +19,8 @@ export default function AdminPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-primary">
-        <div className="text-accent text-xl">Yükleniyor...</div>
+      <div className="min-h-screen flex items-center justify-center bg-primary px-2 sm:px-0">
+        <div className="text-accent text-lg sm:text-xl">Yükleniyor...</div>
       </div>
     );
   }
