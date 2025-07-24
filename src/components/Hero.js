@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { LinkButton } from './LinkButton';
 import { BlackWhiteInstagramProfile } from './InstagramEmbed';
+import { Link } from 'react-router-dom';
 
 export default function Hero() {
   return (
@@ -28,7 +29,7 @@ export default function Hero() {
           >
             Muğla'da samimi atmosfer ve el yapımı içecekler
           </motion.p>
-          <LinkButton to="menu">Menüyü Görüntüle</LinkButton>
+          <LinkButton to="menu"><Link to="menu">Menüyü Görüntüle</Link></LinkButton>
         </div>
       </section>
       <BlackWhiteInstagramProfile />

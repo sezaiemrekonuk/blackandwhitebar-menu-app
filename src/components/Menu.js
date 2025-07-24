@@ -11,6 +11,8 @@ export default function Menu() {
   const [loading, setLoading] = useState(true);
   const [searchParams] = useSearchParams();
   const tableNumber = searchParams.get('table') < 100 ? searchParams.get('table') : null;
+  const [categoryFilter, setCategoryFilter] = useState('');
+  const [openCategory, setOpenCategory] = useState(null);
 
   useEffect(() => {
     fetchMenuData();
@@ -41,6 +43,12 @@ export default function Menu() {
         items: groupedItems[category]
       }));
 
+      // Sort them to be like: Fıçı Bira, Şişe, Shot, Import, Atıştırmalık, others
+      menuArray.sort((a, b) => {
+        const order = ['Fıçı Bira', 'Şişe', 'Shot', 'Import', 'Atıştırmalık', 'Alkolsüz'];
+        return order.indexOf(a.category) - order.indexOf(b.category);
+      });
+
       setMenuData(menuArray);
       setLoading(false);
     } catch (error) {
@@ -48,6 +56,14 @@ export default function Menu() {
       setLoading(false);
     }
   };
+
+  // Get all categories for filter dropdown
+  const allCategories = menuData.map(cat => cat.category);
+
+  // Filtered menu data
+  const filteredMenuData = categoryFilter
+    ? menuData.filter(cat => cat.category === categoryFilter)
+    : menuData;
 
   if (loading) {
     return (
@@ -81,43 +97,88 @@ export default function Menu() {
       )}
 
       <h2 className="text-2xl sm:text-4xl font-heading text-center mb-8 sm:mb-12">Menümüz</h2>
-      <div className="max-w-md sm:max-w-4xl mx-auto space-y-10 sm:space-y-16">
-        {menuData.map((cat, i) => (
+
+      {/* Category Filter Bar */}
+      <div className="max-w-md sm:max-w-4xl mx-auto mb-6 flex flex-wrap gap-2 justify-center">
+        <button
+          className={`px-3 py-1 rounded-full border text-xs sm:text-base ${categoryFilter === '' ? 'bg-accent text-primary border-accent' : 'bg-gray-700 text-white border-gray-600 hover:bg-gray-600'}`}
+          onClick={() => { setCategoryFilter(''); setOpenCategory(null); }}
+        >
+          Tümü
+        </button>
+        {allCategories.map(cat => (
+          <button
+            key={cat}
+            className={`px-3 py-1 rounded-full border text-xs sm:text-base ${categoryFilter === cat ? 'bg-accent text-primary border-accent' : 'bg-gray-700 text-white border-gray-600 hover:bg-gray-600'}`}
+            onClick={() => { setCategoryFilter(cat); setOpenCategory(cat); }}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
+
+      <div className="max-w-md sm:max-w-4xl mx-auto space-y-4 sm:space-y-8">
+        {filteredMenuData.map((cat, i) => (
           <div key={i}>
-            <motion.h3 initial="hidden" whileInView="visible" variants={fadeIn} className="text-xl sm:text-3xl font-semibold mb-4 sm:mb-8">
-              {cat.category}
-            </motion.h3>
-            <div className="space-y-4 sm:space-y-6">
-              {cat.items.map((item, j) => (
-                <motion.div 
-                  key={j} 
-                  initial="hidden" 
-                  whileHover={{ scale: 1.02 }} 
-                  whileInView="visible" 
-                  variants={fadeIn} 
-                  transition={{ duration: 0.5 }} 
-                  className="bg-primary/80 p-3 sm:p-4 rounded-xl shadow-xl flex flex-col sm:flex-row items-center gap-4 sm:gap-6"
-                >
-                  <div className="flex-shrink-0">
-                    <div className="overflow-hidden rounded-lg">
-                      <img src={item.image || '/placeholder-food.jpg'} alt={item.name} className="w-20 h-20 sm:w-24 sm:h-24 object-cover" />
-                    </div>
-                  </div>
-                  <div className="flex-1 min-w-0 text-center sm:text-left">
-                    <h4 className="text-lg sm:text-xl font-semibold mb-1 sm:mb-2">{item.name}</h4>
-                    <p className="text-gray-300 text-xs sm:text-sm">{item.description}</p>
-                  </div>
-                  <div className="flex-shrink-0 mt-2 sm:mt-0">
-                    <span className="text-accent font-bold text-base sm:text-lg">₺{item.price}</span>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
+            {/* Accordion Header */}
+            <button
+              className="w-full flex justify-between items-center py-3 px-4 bg-primary/70 rounded-lg shadow font-semibold text-lg sm:text-2xl mb-2 focus:outline-none"
+              onClick={() => setOpenCategory(openCategory === cat.category ? null : cat.category)}
+              aria-expanded={openCategory === cat.category}
+              aria-controls={`menu-cat-${i}`}
+            >
+              <span>{cat.category}</span>
+              <svg
+                className={`w-5 h-5 ml-2 transition-transform ${openCategory === cat.category ? 'rotate-180' : ''}`}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            {/* Accordion Content */}
+            <motion.div
+              id={`menu-cat-${i}`}
+              initial={false}
+              animate={{ height: openCategory === cat.category ? 'auto' : 0, opacity: openCategory === cat.category ? 1 : 0 }}
+              transition={{ duration: 0.3 }}
+              style={{ overflow: 'hidden' }}
+            >
+              {openCategory === cat.category && (
+                <div className="space-y-4 sm:space-y-6 mt-2">
+                  {cat.items.map((item, j) => (
+                    <motion.div 
+                      key={j} 
+                      initial="hidden" 
+                      whileHover={{ scale: 1.02 }} 
+                      whileInView="visible" 
+                      variants={fadeIn} 
+                      transition={{ duration: 0.5 }} 
+                      className="bg-primary/80 p-3 sm:p-4 rounded-xl shadow-xl flex flex-col sm:flex-row items-center gap-4 sm:gap-6"
+                    >
+                      <div className="flex-shrink-0">
+                        <div className="overflow-hidden rounded-lg">
+                          <img src={item.image || '/placeholder-food.jpg'} alt={item.name} className="w-20 h-20 sm:w-24 sm:h-24 object-cover" />
+                        </div>
+                      </div>
+                      <div className="flex-1 min-w-0 text-center sm:text-left">
+                        <h4 className="text-lg sm:text-xl font-semibold mb-1 sm:mb-2">{item.name}</h4>
+                        <p className="text-gray-300 text-xs sm:text-sm">{item.description}</p>
+                      </div>
+                      <div className="flex-shrink-0 mt-2 sm:mt-0">
+                        <span className="text-accent font-bold text-base sm:text-2xl">₺{item.price}</span>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              )}
+            </motion.div>
           </div>
         ))}
       </div>
       
-      {menuData.length === 0 && (
+      {filteredMenuData.length === 0 && (
         <div className="text-center py-8 sm:py-12">
           <p className="text-gray-400 text-base sm:text-lg">Henüz menü öğesi bulunmuyor.</p>
         </div>
