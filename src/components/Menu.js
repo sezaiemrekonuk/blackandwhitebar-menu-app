@@ -14,6 +14,17 @@ export default function Menu() {
   const [categoryFilter, setCategoryFilter] = useState('');
   const [openCategory, setOpenCategory] = useState(null);
 
+  // Happy Hour window: 09:00 to 19:00 Istanbul time (UTC+3)
+  function isHappyHourNow() {
+    // Get current time in UTC+3 (Istanbul)
+    const now = new Date();
+    // Convert to UTC+3
+    const utc3 = new Date(now.getTime() + (3 * 60 - now.getTimezoneOffset()) * 60000);
+    const hour = utc3.getHours();
+    return hour >= 9 && hour < 19;
+  }
+  const showHH = isHappyHourNow();
+
   useEffect(() => {
     fetchMenuData();
   }, []);
@@ -122,7 +133,7 @@ export default function Menu() {
           <div key={i}>
             {/* Accordion Header */}
             <button
-              className="w-full flex justify-between items-center py-3 px-4 bg-primary/70 rounded-lg shadow font-semibold text-lg sm:text-2xl mb-2 focus:outline-none"
+              className="w-full flex justify-between items-center py-3 px-4 bg-primary/70 rounded-lg border-accent/50 border-b-2 shadow font-semibold text-lg sm:text-2xl mb-2 focus:outline-none"
               onClick={() => setOpenCategory(openCategory === cat.category ? null : cat.category)}
               aria-expanded={openCategory === cat.category}
               aria-controls={`menu-cat-${i}`}
@@ -147,30 +158,31 @@ export default function Menu() {
             >
               {openCategory === cat.category && (
                 <div className="space-y-4 sm:space-y-6 mt-2">
-                  {cat.items.map((item, j) => (
-                    <motion.div 
-                      key={j} 
-                      initial="hidden" 
-                      whileHover={{ scale: 1.02 }} 
-                      whileInView="visible" 
-                      variants={fadeIn} 
-                      transition={{ duration: 0.5 }} 
-                      className="bg-primary/80 p-3 sm:p-4 rounded-xl shadow-xl flex flex-col sm:flex-row items-center gap-4 sm:gap-6"
-                    >
-                      <div className="flex-shrink-0">
-                        <div className="overflow-hidden rounded-lg">
-                          <img src={item.image || '/placeholder-food.jpg'} alt={item.name} className="w-20 h-20 sm:w-24 sm:h-24 object-cover" />
+                  {cat.items
+                    .filter(item => !(item.name && item.name.includes('H.H') && !showHH))
+                    .map((item, j) => (
+                      <motion.div 
+                        key={j} 
+                        initial="hidden" 
+                        whileInView="visible" 
+                        variants={fadeIn} 
+                        transition={{ duration: 0.5 }} 
+                        className="bg-primary/80 p-3  sm:p-4 rounded-xl hover:border-accent/70 transition-colors border border-accent/30 shadow-xl flex flex-col sm:flex-row items-center gap-4 sm:gap-6"
+                      >
+                        <div className="flex-shrink-0">
+                          <div className="overflow-hidden rounded-lg">
+                            <img src={item.image || '/placeholder-food.jpg'} alt={item.name} className="w-20 h-20 sm:w-24 sm:h-24 object-cover" />
+                          </div>
                         </div>
-                      </div>
-                      <div className="flex-1 min-w-0 text-center sm:text-left">
-                        <h4 className="text-lg sm:text-xl font-semibold mb-1 sm:mb-2">{item.name}</h4>
-                        <p className="text-gray-300 text-xs sm:text-sm">{item.description}</p>
-                      </div>
-                      <div className="flex-shrink-0 mt-2 sm:mt-0">
-                        <span className="text-accent font-bold text-base sm:text-2xl">₺{item.price}</span>
-                      </div>
-                    </motion.div>
-                  ))}
+                        <div className="flex-1 min-w-0 text-center sm:text-left">
+                          <h4 className="text-lg sm:text-xl font-semibold mb-1 sm:mb-2">{item.name}</h4>
+                          <p className="text-gray-300 text-xs sm:text-sm">{item.description}</p>
+                        </div>
+                        <div className="flex-shrink-0 mt-2 sm:mt-0">
+                          <span className="text-accent font-bold text-base sm:text-2xl">₺{item.price}</span>
+                        </div>
+                      </motion.div>
+                    ))}
                 </div>
               )}
             </motion.div>
