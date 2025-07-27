@@ -56,7 +56,7 @@ export default function Menu() {
 
       // Sort them to be like: Fıçı Bira, Şişe, Shot, Import, Atıştırmalık, others
       menuArray.sort((a, b) => {
-        const order = ['Fıçı Bira', 'Şişe', 'Shot', 'Import', 'Atıştırmalık', 'Alkolsüz'];
+        const order = ['Fıçı Bira', 'Şişe', 'Atıştırmalık', 'Shot', 'Import', 'Alkolsüz'];
         return order.indexOf(a.category) - order.indexOf(b.category);
       });
 
@@ -158,7 +158,7 @@ export default function Menu() {
             >
               {openCategory === cat.category && (
                 <div className="space-y-4 sm:space-y-6 mt-2">
-                  {cat.items
+                  {cat.items.sort((a, b) => a.name.localeCompare(b.name))
                     .filter(item => !(item.name && item.name.includes('H.H') && !showHH))
                     .map((item, j) => (
                       <motion.div 

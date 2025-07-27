@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { LinkButton } from './LinkButton';
-import { BlackWhiteInstagramProfile } from './InstagramEmbed';
+// import { BlackWhiteInstagramProfile } from './InstagramEmbed';
 import { Link } from 'react-router-dom';
 
 export default function Hero() {
@@ -27,12 +27,12 @@ export default function Hero() {
             transition={{ delay: 0.5, duration: 1 }}
             className="text-base sm:text-lg mb-6"
           >
-            Muğla'da samimi atmosfer ve el yapımı içecekler
+            Düşleriniz yaşamınız olsun
           </motion.p>
           <LinkButton to="menu"><Link to="menu">Menüyü Görüntüle</Link></LinkButton>
         </div>
       </section>
-      <BlackWhiteInstagramProfile />
+      {/* <BlackWhiteInstagramProfile /> */}
     </>
   );
 }
