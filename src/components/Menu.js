@@ -6,6 +6,74 @@ import { useSearchParams } from 'react-router-dom';
 
 const fadeIn = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } };
 
+// Function to extract size from item name and return a sortable value
+const getSizeValue = (name) => {
+  const lowerName = name.toLowerCase();
+  
+  // Define size order (smaller numbers = smaller sizes)
+  const sizeOrder = {
+    'small': 1,
+    's': 1,
+    'medium': 2,
+    'm': 2,
+    'large': 3,
+    'l': 3,
+    'x-large': 4,
+    'xl': 4,
+    'xlarge': 4,
+    '2x-large': 5,
+    '2xl': 5,
+    '2xlarge': 5,
+    'xx-large': 5,
+    'xxl': 5,
+    'xxlarge': 5,
+    '3x-large': 6,
+    '3xl': 6,
+    '3xlarge': 6,
+    'xxx-large': 6,
+    'xxxl': 6,
+    'xxxlarge': 6,
+    '4x-large': 7,
+    '4xl': 7,
+    '4xlarge': 7,
+    'xxxx-large': 7,
+    'xxxxl': 7,
+    'xxxxlarge': 7
+  };
+
+  // Check for size indicators in the name
+  for (const [size, value] of Object.entries(sizeOrder)) {
+    if (lowerName.includes(size)) {
+      return value;
+    }
+  }
+  
+  // If no size found, return 0 (will be sorted alphabetically)
+  return 0;
+};
+
+// Function to sort items by size first, then alphabetically
+const sortItemsBySize = (a, b) => {
+  const sizeA = getSizeValue(a.name);
+  const sizeB = getSizeValue(b.name);
+  
+  // If both items have sizes, sort by size
+  if (sizeA > 0 && sizeB > 0) {
+    return sizeA - sizeB;
+  }
+  
+  // If only one item has size, put the one with size first
+  if (sizeA > 0 && sizeB === 0) {
+    return -1;
+  }
+  if (sizeA === 0 && sizeB > 0) {
+    return 1;
+  }
+  
+  // If neither has size, sort alphabetically
+  return a.name.localeCompare(b.name);
+};
+
 export default function Menu() {
   const [menuData, setMenuData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -158,7 +226,7 @@ export default function Menu() {
             >
               {openCategory === cat.category && (
                 <div className="space-y-4 sm:space-y-6 mt-2">
-                  {cat.items.sort((a, b) => a.name.localeCompare(b.name))
+                  {cat.items.sort(sortItemsBySize)
                     .filter(item => !(item.name && item.name.includes('H.H') && !showHH))
                     .map((item, j) => (
                       <motion.div 
