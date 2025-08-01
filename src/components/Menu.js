@@ -41,10 +41,20 @@ const getSizeValue = (name) => {
     'xxxxlarge': 7
   };
 
-  // Check for size indicators in the name
+  // Check for size indicators in the name - match whole words or specific patterns
+  const words = lowerName.split(/\s+/);
+  
+  // First check for multi-word sizes (like "x-large", "2x-large")
   for (const [size, value] of Object.entries(sizeOrder)) {
-    if (lowerName.includes(size)) {
+    if (size.includes('-') && lowerName.includes(size)) {
       return value;
+    }
+  }
+  
+  // Then check for single word sizes
+  for (const word of words) {
+    if (sizeOrder[word]) {
+      return sizeOrder[word];
     }
   }
   
@@ -116,10 +126,10 @@ export default function Menu() {
         return acc;
       }, {});
 
-      // Convert to array format
+      // Convert to array format and sort items by size within each category
       const menuArray = Object.keys(groupedItems).map(category => ({
         category,
-        items: groupedItems[category]
+        items: [...groupedItems[category]].sort(sortItemsBySize)
       }));
 
       // Sort them to be like: Fıçı Bira, Şişe, Shot, Import, Atıştırmalık, others
@@ -226,7 +236,7 @@ export default function Menu() {
             >
               {openCategory === cat.category && (
                 <div className="space-y-4 sm:space-y-6 mt-2">
-                  {cat.items.sort(sortItemsBySize)
+                  {cat.items
                     .filter(item => !(item.name && item.name.includes('H.H') && !showHH))
                     .map((item, j) => (
                       <motion.div 
